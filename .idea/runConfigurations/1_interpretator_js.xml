@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="1_interpretator.js" type="NodeJSConfigurationType" path-to-node="$USER_HOME$/.nvm/versions/node/v12.16.3/bin/node" nameIsGenerated="true" path-to-js-file="1_interpretator.js" working-dir="$PROJECT_DIR$/lesson_1">
+    <method v="2" />
+  </configuration>
+</component>
