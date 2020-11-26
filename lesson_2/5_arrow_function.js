@@ -1,6 +1,24 @@
-const arrowFunction = (argument) => {
-  console.log('received argument');
-  console.log(argument);
+// є ще так звані стрілочні функції це справжні лябди, у них є три основні властивості
+
+// 1 - якщо аргумент 1 можна не використовувати круглі дужки
+
+const lambda = arg => {
+  console.log("I'm one argument lambda, and my argument is: ", arg);
 }
 
-const otherOne
+// 2 - у них не може бути імені, їх можна тільки зберігати у змінних або властивостях
+
+const noNameButFine = () => {
+  console.log('I will never have a name, but it is fine');
+}
+
+noNameButFine();
+
+// 3 - якщо у тілі лямбди всього один вираз, то можна не викристовувати фігурні дужки, і результат сього виразу повертаєтся
+
+const generate100 = () => 100;
+
+console.log(generate100() === 100);
+console.log(generate100() + generate100());
+
+// решта дуже схожа на інші функції, так працює аналогічно (за винятком контексту, але про це пізніше)
