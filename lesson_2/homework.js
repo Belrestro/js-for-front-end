@@ -5,8 +5,8 @@
   
   приймає 1 аргумент, булівське значення 
 */
-function isZero() {
-  
+function isZero(val) {
+  // ваш код
 }
 
 /*
@@ -53,9 +53,11 @@ const testSuite = (func, testValues, expectedValues) => {
       throw new Error(
         'Виконання функції ' +
         func.name + 
-        ' пройшло не очікувано, очікуваний результат: ' +
+        ' пройшло не очікувано, передано значення: ' +
+        testValues[i] +
+        ' очікуваний результат: ' +
         expectedValues[i] + 
-        'справжній результат: ' +
+        ' справжній результат: ' +
         result
       )
     }
@@ -68,11 +70,12 @@ const testSuite = (func, testValues, expectedValues) => {
 // тестуємо isZero
 testSuite(isZero, [0, false, null, undefined, '', -0], [true, false, false, false, false, true]);
 // тестуємо isGreaterThen100
-testSuite(isZero, [100, 99, 101, '100', -100, 50 + 50], [false, false, true, false, false, true]);
+testSuite(isGreaterThen100, [100, 99, 101, '100', -100, 50 + 51], [false, false, true, false, false, true]);
 // тестуємо butComputerSays
 testSuite(butComputerSays, ['ok I will do as you say', 'raise of the machines', null, -1, false, undefined, 0], ['But computer says: ok I will do as you say', 'But computer says: raise of the machines', '', '', '', '', ''])
 // тестуємо toBoolean
 testSuite(
   toBoolean,
   [0, -1, false, null, undefined, '10', '-12.2', '', {}],
-  [new Boolean(0), new Boolean(-1), new Boolean(false), new Boolean(null), new Boolean(undefined), new Boolean('10'), new Boolean('-12.2'), new Boolean(''), new Boolean({})])
+  [!!0, !!-1, !!false, !!null, !!undefined, !!'10', !!'-12.2', !!'', !!{}]
+)
