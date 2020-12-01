@@ -18,7 +18,11 @@ function isZero(val) {
 */
 
 function isGreaterThen100(val) {
-  // ваш код
+  if (typeof val === 'number') {
+    return val > 100;
+  }
+
+  return false;
 }
 
 /*
@@ -42,7 +46,19 @@ function butComputerSays(str) {
 */
 
 function toBoolean (arg) {
-  // ваш код
+  if (arg === null || arg === undefined) {
+    return false;
+  } else if (typeof arg === 'string') {
+    return arg.length > 0;
+  } else if (typeof arg === 'number') {
+    return +arg !== NaN && arg !== 0;
+  } else if (typeof arg === 'object') {
+    return true;
+  } else if (typeof arg === 'function') {
+    return true;
+  }
+
+  return arg;
 }
 
 const testSuite = (func, testValues, expectedValues) => {

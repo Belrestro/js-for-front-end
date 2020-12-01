@@ -30,9 +30,25 @@ for (;i < 10;) {
   i++; // просто збільшує на одиницю
 }
 
-console.log(i); // i яка не в циклі вже значення 10, шкідливо
+console.log(i); // i яка не в циклі вже значення 9, шкідливо
 
 for (let i = 0;i < 10;) {
   console.log('iteration', i);
   i++; // якщо забудем написати i ніколи не сягне значення 10
 }
+
+const array = [1,2,3, '4', 'name'];
+
+for (let x = 0; x < array.length; x++) {
+  const value = array[x];
+  
+  console.log(value);
+}
+
+const doSomething10Times = (something) => {
+  for (let i = 0; i < 10; i++) {
+    something();
+    return;
+  }
+  console.log('This never happens');
+};
