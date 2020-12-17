@@ -19,3 +19,17 @@ const compareObjects = // ваш код
 // функція приймає два аргументи і повертає булівське значення
 
 const compareArrays = // ваш код
+
+
+// створіть функцію фабрику
+// вона буде приймати об'єкт у якості аргумента
+// і призначати йому додаткові властивості
+
+const defaultObject = {
+  type: 'Robot',
+  goal: 'Destroy humanity',
+};
+
+const robotFactory = (object) => {
+
+} // повертає новий об'єкт з усіма властивотсями defaultObject
