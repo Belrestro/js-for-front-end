@@ -3,7 +3,7 @@
 // функція отримує один аргумент - массив
 // повертає числове значення (середнє)
 
-const reduceArray = // ваш код
+// const reduceArray = // ваш код
 
 // створіть функцію що може порівняти 2 об'єкта
 // і відповісти напевне чи відповідають
@@ -11,14 +11,29 @@ const reduceArray = // ваш код
 // якщо усі властивості збігаються треба повернути true інакше false
 // порівнюйте властивості строго
 
-const compareObjects = // ваш код
+// const compareObjects = // ваш код
 
 // створіть функцію що порівнює два массиви
 // якщо всі елементи співпадають (на всіх індексах відповідно)
 // поверніть true
 // функція приймає два аргументи і повертає булівське значення
 
-const compareArrays = // ваш код
+
+const array1 = {};
+const array2 = {a : 1};
+
+const compareArrays = (a, b) => {
+  if (!Array.isArray(a) || !Array.isArray(b)) return false;
+  if (a.length !== b.length) return false;
+
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] !== b[i]) return false;
+  }
+
+  return true;
+}
+
+console.log(compareArrays(array1, array2));
 
 
 // створіть функцію фабрику
@@ -30,6 +45,6 @@ const defaultObject = {
   goal: 'Destroy humanity',
 };
 
-const robotFactory = (object) => {
+// const robotFactory = (object) => {
 
-} // повертає новий об'єкт з усіма властивотсями defaultObject
+// } // повертає новий об'єкт з усіма властивотсями defaultObject
