@@ -24,7 +24,7 @@ button.addEventListener('click', handler);
 document.body.appendChild(button);
 startCountdown(4);
 
-const timer = setTimeout(() => {
+timer = setTimeout(() => {
   console.log('Not going to happen');
 }, 1000);
 
