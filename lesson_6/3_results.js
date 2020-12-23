@@ -12,6 +12,7 @@ const displayResults = (quiz) => {
     const question = quiz[i];
     const isCorrectAnswer = question.isCorrectAnswer;
 
+    questionText.className = 'question-result';
     questionText.innerHTML = Number(i) + 1 + '. ' + question.question;
     questionResult.appendChild(questionText);
     

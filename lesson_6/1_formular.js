@@ -10,21 +10,26 @@ const askQuestion = (question, callback) => {
   const wrapper = document.createElement('div');
   const questionH3 = document.createElement('h3');
   const inputsContainer = document.createElement('div');
+  const inputs = [];
 
   questionH3.innerHTML = question.question;
 
   const valueTracker = (id, checked) => {
     const key = id.split('-')[1];
     const answer = question.options[key];
+    for (let i in inputs) {
+      inputs[i].querySelector('input').setAttribute('disabled', true);
+    }
 
     question.actualAnswer = answer
     question.isCorrectAnswer = question.answer === answer;
 
-    callback(question);
+    setTimeout(() => callback(question), 1500); // відкладемо виконання на 1.5 секунди
   }
 
   for (let key in question.options) {
     const checkbox = createCheckbox(question.options[key], 'id-' + key, valueTracker);
+    inputs.push(checkbox);
 
     inputsContainer.appendChild(checkbox);
   }

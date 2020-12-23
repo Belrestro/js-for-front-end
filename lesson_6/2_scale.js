@@ -1,8 +1,12 @@
 const createScale = (questionsNumber) => {
   const scaleWrapper = document.createElement('div');
+  const scale = document.createElement('div');
   let answeredNumber = 0;
-  let scale;
   
+  scale.id = 'scale';
+  scale.style.background = '#8af98a';
+  scale.style.height = '15px';
+
   const calculateAnsweredQuestionsPercentage = () => {
     if (answeredNumber >= questionsNumber) return 100;
     if (answeredNumber <= 0) return 0;
@@ -10,23 +14,18 @@ const createScale = (questionsNumber) => {
   };
 
   const setScale = () => {
-    if (scale) scaleWrapper.removeChild(scale);
-    scale = document.createElement('div');
     const percentage = calculateAnsweredQuestionsPercentage();
-
-    scale.style.background = 'green';
-    scale.style.height = '15px';
     scale.style.width = percentage + '%';
-
-    scaleWrapper.appendChild(scale);
   }
 
   scaleWrapper.style.border = '1px solid';
+  scaleWrapper.style.borderRadius = '4px';
   scaleWrapper.updateAnsweredNumber = (amount) => {
     answeredNumber = amount;
     setScale();
   }
 
+  scaleWrapper.appendChild(scale);
   return scaleWrapper;
 };
 
