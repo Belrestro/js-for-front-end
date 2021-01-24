@@ -7,6 +7,36 @@ class Point {
   add(point) {
     return new Point(this.x + point.x, this.y + point.y);
   }
+
+  minus(point) {
+    return new Point(this.x - point.x, this.y - point.y);
+  }
+
+  distance(point) {
+    const newPoint = this.minus(point);
+
+    return Math.abs(newPoint.x) + Math.abs(newPoint.y);
+  }
+
+  equals(point) {
+    return this.x === point.x && this.y === point.y;
+  }
+
+  static up() {
+    return new Point(0, -1);
+  }
+
+  static down() {
+    return new Point(0, 1);
+  }
+
+  static left() {
+    return new Point(-1, 0);
+  }
+
+  static right() {
+    return new Point(1, 0);
+  }
 }
 
 class Grid {
@@ -14,11 +44,6 @@ class Grid {
     this.width = size;
     this.height = size;
     this.grid = new Array(size ** 2).fill(null);
-    // const grid = [];
-    // for (let i = 0; i < size ** 2; i++) {
-    //   grid.push(null);
-    // }
-    // this.grid = grid;
   }
 
   getIndexOfPoint(point) {
@@ -29,18 +54,22 @@ class Grid {
       && point.y < this.height;
 
     if (!isOnGrid) {
-      throw new Error('Point is not on grid');
+      throw new Error('Point is not on grid x:' + point.x + ' y:' + point.y);
     }
 
     return this.width * point.y + point.x;
   }
 
-  isAvailable(point) {
-    const isOnGrid = point
+  isOnGrid(point) {
+    return point
       && point.x > -1
       && point.x < this.width
       && point.y > -1
       && point.y < this.height;
+  }
+
+  isAvailable(point) {
+    const isOnGrid = this.isOnGrid(point);
     if (!isOnGrid) return false;
     const index = this.getIndexOfPoint(point);
     

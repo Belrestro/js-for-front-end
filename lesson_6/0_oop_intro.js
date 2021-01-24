@@ -41,7 +41,7 @@ console.log('чи cхожі obj1, obj2', isSameObject(obj1, obj2)); // так
 const cloneObject = (obj) => { // беремо прототип
 	const newOne = {}; // починаємо з пустого об'єкта
 
-	for (const key in obj1) {
+	for (const key in obj) {
 		newOne[key] = obj[key]; // записуємо всі властивості "прототупу" в новий об'єкт
 	}
 	return newOne;

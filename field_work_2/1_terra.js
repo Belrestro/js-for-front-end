@@ -1,14 +1,25 @@
 class Terra {
   constructor(size, step) {
+    this.size = size;
     this.grid = new Grid(size);
     this.step = step;
     this.steps = 0;
     this.creatures = [];
+    Texture.dimensions(15, 15);
   }
 
   add(point, creature) {
     this.grid.place(point, creature);
     this.creatures.push(creature);
+  }
+
+  get(point) {
+    return this.grid.get(point);
+  }
+
+  move(point, creature) {
+    this.grid.remove(creature.coordinates);
+    this.grid.place(point, creature);
   }
 
   remove(creature) {
@@ -37,23 +48,62 @@ class Terra {
       }
       this.draw();
       this.steps++;
+
     }, this.step);
+    this.draw();
+  }
+
+  load(map) {
+    if (!Array.isArray(map)) {
+      throw new Error('map should be array');
+    }
+
+    if (!(map.length === (this.size ** 2))) {
+      throw new Error('map dimensions are distorted');
+    }
+
+    this.creatures = [];
+    this.steps = 0;
+    this.grid = new Grid(this.size);
+    
+    let index = 0;
+
+    for (let x=0;x<this.size;x++) {
+      for (let y=0;y<this.size;y++) {
+        const symbol = map[index];
+        const Constructor = getCreatureBySymbol(symbol);
+
+        if (Constructor) {
+          const point = new Point(x, y);
+          const creature = new Constructor(point);
+      
+          this.add(point, creature);
+        }
+        index++;
+      }
+    }
   }
 
   draw() {
-    let result = '';
+    const container = document.createElement('div');
+    const def = new Texture('sand'); // TODO change after config
+
+    container.className = 'terra';
 
     for (let x = 0; x < this.grid.width; x++ ) {
+      const row = document.createElement('div');
+
       for (let y = 0; y < this.grid.height; y++ ) {
         const point = new Point(x, y);
         const object = this.grid.get(point);
 
-        result += (object && object.symbol) || '_';
+        row.appendChild(object ? object.draw() : def.render());
       }
-      result += '</br>';
+      container.appendChild(row);
     }
 
-    document.body.innerHTML = result;
+    document.body.innerHTML = '';
+    document.body.appendChild(container);
   }
 
   stop() {

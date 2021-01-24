@@ -35,3 +35,4 @@ Computer.prototype.says = (statement) => {
 
 mac.says('mac has been hacked');
 
+// TODO add Object.create Object.getPrototypeOf
