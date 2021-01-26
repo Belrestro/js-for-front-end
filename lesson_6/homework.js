@@ -15,19 +15,9 @@ const assert = (message, statement) => {
   }
 }
 class Vehicle {
-  constructor(type, fullCapacity) {
-    this.type = type;
-    this.fullCapacity = fullCapacity;
-    this.currentCapacity = 0;
-    this.passengers = [];
-  }
+  constructor() {}
 
-  onboard(name) {
-    if (this.currentCapacity < this.fullCapacity) {
-      this.currentCapacity++;
-      this.passengers.push(name);
-    }
-  }
+  onboard(name) {}
 
   has(name) {
     // return this.passengers.includes(name);
@@ -37,16 +27,16 @@ class Vehicle {
 const vehicle = new Vehicle('bike', 1);
 
 // тести
-assert('має бути пустий', vehicle.currentCapacity === 0);
+// assert('має бути пустий', vehicle.currentCapacity === 0);
 
-vehicle.onboard('Drew');
+// vehicle.onboard('Drew');
 
-assert('має мати 1 пасажира', vehicle.currentCapacity === 1);
-assert('має мати конкретного', vehicle.has('Drew') === true);
-assert('не має мати іншого пасажира', vehicle.has('Nancy') === false);
+// assert('має мати 1 пасажира', vehicle.currentCapacity === 1);
+// assert('має мати конкретного', vehicle.has('Drew') === true);
+// assert('не має мати іншого пасажира', vehicle.has('Nancy') === false);
 
-vehicle.onboard('Sue');
-vehicle.onboard('Dan');
+// vehicle.onboard('Sue');
+// vehicle.onboard('Dan');
 
-assert('має мати 1 пасажира', vehicle.currentCapacity === 1);
-assert('має мати конкретного', vehicle.has('Drew') === true);
+// assert('має мати 1 пасажира', vehicle.currentCapacity === 1);
+// assert('має мати конкретного', vehicle.has('Drew') === true);
