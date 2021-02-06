@@ -13,4 +13,4 @@
 - [x] Creature stats
 
 ### Editor
-- [ ] Draw maps
+- [x] Draw maps
