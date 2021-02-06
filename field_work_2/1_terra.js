@@ -1,11 +1,24 @@
 class Terra {
-  constructor(size, step) {
+  isEdited = false;
+
+  constructor({
+    size = 10,
+    step = 250,
+    background = 'sand',
+    creatureConfigs = [],
+    textureSize = 15,
+    debug = false,
+  }) {
     this.size = size;
     this.grid = new Grid(size);
     this.step = step;
     this.steps = 0;
     this.creatures = [];
-    Texture.dimensions(15, 15);
+    this.background = background;
+    this.creatureConfigs = creatureConfigs;
+    Texture.dimensions(textureSize, textureSize);
+    Texture.background(background);
+    Texture.debug(debug);
   }
 
   add(point, creature) {
@@ -53,6 +66,11 @@ class Terra {
     this.draw();
   }
 
+  stop() {
+    console.log('stop', this.interval);
+    clearInterval(this.interval);
+  }
+
   load(map) {
     if (!Array.isArray(map)) {
       throw new Error('map should be array');
@@ -84,11 +102,33 @@ class Terra {
     }
   }
 
-  draw() {
-    const container = document.createElement('div');
-    const def = new Texture('sand'); // TODO change after config
+  save() {
+    const array = [];
 
-    container.className = 'terra';
+    for (let x=0;x<this.size;x++) {
+      for (let y=0;y<this.size;y++) {
+        const cell = this.grid.get(new Point(x, y));
+        const symbol = getSymbolByCreature(cell);
+
+        array.push(symbol || '');
+      }
+    }
+
+    return array;
+  }
+
+  draw() {
+    let container = document.querySelector('.terra');
+
+    if (!container) {
+      container = document.createElement('div');
+      container.className = 'terra';
+      document.body.appendChild(container);
+    }
+
+    container.innerHTML = '';
+
+    const def = new Texture(this.background);
 
     for (let x = 0; x < this.grid.width; x++ ) {
       const row = document.createElement('div');
@@ -96,17 +136,48 @@ class Terra {
       for (let y = 0; y < this.grid.height; y++ ) {
         const point = new Point(x, y);
         const object = this.grid.get(point);
+        const element = object ? object.draw() : def.render();
+        element.id = `point-${x}-${y}`;
 
-        row.appendChild(object ? object.draw() : def.render());
+        row.appendChild(element);
       }
       container.appendChild(row);
     }
-
-    document.body.innerHTML = '';
-    document.body.appendChild(container);
   }
 
-  stop() {
-    clearInterval(this.interval);
+  editListener({ target }) {
+    let [_, x, y] = target.id.split('-');
+    x = +x;
+    y = +y;
+
+    if (!isNaN(x) && !isNaN(y)) {
+      const symbols = Object.keys(creatures);
+      const point = new Point(x, y);
+      const cell = this.grid.get(point);
+      const symbol = cell ? getSymbolByCreature(cell) : '';
+      const index = symbols.indexOf(symbol) + 1;
+
+      cell && this.remove(cell);
+      if (index < symbols.length) {
+        const C = getCreatureBySymbol(symbols[index]);
+        const creature = new C(point);
+        
+        this.add(point, creature);
+      }
+      this.draw();
+    }
+  }
+
+  editMode(isEdited) {
+    const container = document.querySelector('.terra');
+    this.stop();
+    if (isEdited) {
+      if (this.isEdited) return;
+      container.addEventListener('click', this.editListener.bind(this));
+    } else {
+      container.removeEventListener('click', this.editListener.bind(this));
+    }
+
+    this.isEdited = isEdited;
   }
 }
