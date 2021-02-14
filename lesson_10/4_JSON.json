@@ -1,0 +1,9 @@
+{
+  "json": "JAVA SCRIPT OBJECT NOTATION",
+  "object": {
+    "number": -1.1,
+    "boolean": false,
+    "null": null
+  },
+  "array": [1,2,3]
+}
